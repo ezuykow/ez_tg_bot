@@ -7,8 +7,12 @@ import com.pengrad.telegrambot.request.DeleteWebhook;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SetWebhook;
 import ru.ezuykow.eztgbot.configs.EzTgBotPropertiesHolder;
-import ru.ezuykow.eztgbot.processors.UpdateHandler;
+import ru.ezuykow.eztgbot.processing.UpdateHandler;
 
+/**
+ * Фабрика для создания Telegram bot по конфигурации из конфиг-файла
+ * @author ezuykow
+ */
 public final class TelegramBotFactory {
 
     public static TelegramBot createTelegramBot(EzTgBotPropertiesHolder propertiesHolder, UpdateHandler updateHandler) {
@@ -41,16 +45,15 @@ public final class TelegramBotFactory {
             timeout = 100;
         }
         bot.setUpdatesListener(
-                updateListener(bot, propertiesHolder, updateHandler),
+                updateListener(updateHandler),
                 new GetUpdates().timeout(timeout)
         );
     }
 
-    private static UpdatesListener updateListener(TelegramBot bot, EzTgBotPropertiesHolder propertiesHolder,
-                                                  UpdateHandler updateHandler) {
+    private static UpdatesListener updateListener(UpdateHandler updateHandler) {
         return updates -> {
             for (Update update : updates) {
-                updateHandler.process(bot, update, propertiesHolder);
+                updateHandler.submitForProcessing(update);
             }
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         };

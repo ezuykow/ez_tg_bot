@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.ezuykow.eztgbot.configs.EzTgBotPropertiesHolder;
-import ru.ezuykow.eztgbot.processors.UpdateHandler;
+import ru.ezuykow.eztgbot.processing.UpdateHandler;
 import ru.ezuykow.eztgbot.utils.EzTgBotLogger;
 
 @Component
