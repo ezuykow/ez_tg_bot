@@ -11,6 +11,10 @@ import ru.ezuykow.eztgbot.utils.update.UpdateContentType;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Обработчик команд бота
+ * @author ezuykow
+ */
 @Component
 @RequiredArgsConstructor
 public class EzTgBotCommandProcessor implements EzTgBotProcessor {
@@ -18,11 +22,17 @@ public class EzTgBotCommandProcessor implements EzTgBotProcessor {
     private final EzTgBotPropertiesHolder propertiesHolder;
     private final List<BotCommandExecutor> botCommandExecutors;
 
+    /**
+     * @return {@link UpdateContentType#COMMAND}
+     */
     @Override
     public UpdateContentType suitFor() {
         return UpdateContentType.COMMAND;
     }
 
+    /**
+     * Передает команду на исполнение подходящему исполнителю
+     */
     @Override
     public void process() {
         String messageText = EzTgBotContext.getUpdate().message().text();
@@ -44,6 +54,10 @@ public class EzTgBotCommandProcessor implements EzTgBotProcessor {
         );
     }
 
+    /**
+     * @param messageText текст сообщения из апдейта
+     * @return текст команды
+     */
     private String parseCommandText(String messageText) {
         if (messageText.contains("@")) {
             String targetUsername = messageText.substring(messageText.indexOf("@") + 1);

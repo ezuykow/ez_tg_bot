@@ -2,6 +2,7 @@ package ru.ezuykow.eztgbot.utils.update;
 
 /**
  * Возможные типы контента update-a
+ * @author ezuykow
  */
 public enum UpdateContentType {
     /**

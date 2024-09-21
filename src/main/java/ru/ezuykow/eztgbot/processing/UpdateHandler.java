@@ -13,6 +13,10 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Первичный обработчик апдейтов
+ * @author ezuykow
+ */
 @Component
 @RequiredArgsConstructor
 public class UpdateHandler {
@@ -22,6 +26,10 @@ public class UpdateHandler {
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
+    /**
+     * Формирует поток с контекстом для обработки текущего апдейта и передает на дальнейшую обработку
+     * @param update текущий апдейт
+     */
     public void submitForProcessing(Update update) {
         executorService.submit(() ->
         {
@@ -39,6 +47,10 @@ public class UpdateHandler {
         });
     }
 
+    /**
+     * Передает обработку апдейта классу, реализующему интерфейс {@link UpdatePreProcessor} (Если такой зарегистрирован)
+     * и на обработку в {@link ProcessorSwitcher}
+     */
     private void startProcessing() {
         try {
             UpdatePreProcessor preProcessor = applicationContext.getBean(UpdatePreProcessor.class);

@@ -22,7 +22,7 @@ public class TelegramBotConfigs {
     private String webhookUrl;
 
     /**
-     * Таймаут запроса обновлений с сервера Telegram Bot API (для ботов на LongPolling)
+     * Таймаут запроса обновлений с сервера Telegram Bot API в милисекундах (для ботов на LongPolling)
      */
     private Integer longPollingTimeout;
 

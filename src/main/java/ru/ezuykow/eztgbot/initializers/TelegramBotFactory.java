@@ -15,6 +15,12 @@ import ru.ezuykow.eztgbot.processing.UpdateHandler;
  */
 public final class TelegramBotFactory {
 
+    /**
+     * Устанавливает вебхук или слушатель апдейтов (если URL вебхука не указан в конфигурации) созданному инстансу бота
+     * @param propertiesHolder конфигурация бота
+     * @param updateHandler обработчик апдейтов
+     * @return инстанс бота
+     */
     public static TelegramBot createTelegramBot(EzTgBotPropertiesHolder propertiesHolder, UpdateHandler updateHandler) {
         TelegramBot bot = createTelegramBotInstance(propertiesHolder);
 
@@ -29,6 +35,11 @@ public final class TelegramBotFactory {
         return bot;
     }
 
+    /**
+     * Создает инстанс TelegramBot по токену и с кастомным сервером (если указан)
+     * @param propertiesHolder конфигурация бота
+     * @return инстанс TelegramBot
+     */
     private static TelegramBot createTelegramBotInstance(EzTgBotPropertiesHolder propertiesHolder) {
         String apiServerUrl = propertiesHolder.getTelegramBotConfigs().getApiServerUrl();
         String token = propertiesHolder.getTelegramBotConfigs().getToken();
@@ -38,6 +49,12 @@ public final class TelegramBotFactory {
                 : new TelegramBot(token);
     }
 
+    /**
+     * Устанавливает слушатель апдейтов боту с указанным в конфигурации таймаутом (100мс, если не указан)
+     * @param bot инстанс бота
+     * @param propertiesHolder конфигурация бота
+     * @param updateHandler обработчик апдейтов
+     */
     private static void setUpdatesListener(TelegramBot bot, EzTgBotPropertiesHolder propertiesHolder,
                                            UpdateHandler updateHandler) {
         Integer timeout = propertiesHolder.getTelegramBotConfigs().getLongPollingTimeout();
@@ -50,6 +67,11 @@ public final class TelegramBotFactory {
         );
     }
 
+    /**
+     * Возвращает дефолтный слушатель апдейтов
+     * @param updateHandler обработчик апдейтов
+     * @return дефолтный слушатель апдейтов
+     */
     private static UpdatesListener updateListener(UpdateHandler updateHandler) {
         return updates -> {
             for (Update update : updates) {

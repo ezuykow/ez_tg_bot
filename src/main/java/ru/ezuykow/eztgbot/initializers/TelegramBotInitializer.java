@@ -10,6 +10,10 @@ import ru.ezuykow.eztgbot.configs.EzTgBotPropertiesHolder;
 import ru.ezuykow.eztgbot.processing.UpdateHandler;
 import ru.ezuykow.eztgbot.utils.EzTgBotLogger;
 
+/**
+ * Инициализатор Telegram бота
+ * @author ezuykow
+ */
 @Component
 @RequiredArgsConstructor
 public class TelegramBotInitializer {
@@ -18,6 +22,9 @@ public class TelegramBotInitializer {
     private final UpdateHandler updateHandler;
     private final GenericApplicationContext genericApplicationContext;
 
+    /**
+     * Инициализирует бота и регистрирует его бин в контексте приложения
+     */
     public void initialize() {
         EzTgBotLogger.info("Trying to initialize {}", propertiesHolder.getTelegramBotConfigs().getUsername());
 
@@ -31,6 +38,11 @@ public class TelegramBotInitializer {
         setBotShortDescription(bot, propertiesHolder);
     }
 
+    /**
+     * Отправляет запрос на смену имени бота, если имя в конфигурации не совпадает с текущим
+     * @param bot инстанс бота
+     * @param propertiesHolder конфигурация бота
+     */
     private void setBotName(TelegramBot bot, EzTgBotPropertiesHolder propertiesHolder) {
         String currentName = bot.execute(new GetMyName()).botName().name();
         String newName = propertiesHolder.getTelegramBotConfigs().getName();
@@ -41,6 +53,11 @@ public class TelegramBotInitializer {
         }
     }
 
+    /**
+     * Отправляет запрос на смену описания бота, если описание в конфигурации не совпадает с текущим
+     * @param bot инстанс бота
+     * @param propertiesHolder конфигурация бота
+     */
     private void setBotDescription(TelegramBot bot, EzTgBotPropertiesHolder propertiesHolder) {
         String currentDesc = bot.execute(new GetMyDescription()).description();
         String newDesc = propertiesHolder.getTelegramBotConfigs().getDescription();
@@ -51,6 +68,11 @@ public class TelegramBotInitializer {
         }
     }
 
+    /**
+     * Отправляет запрос на смену короткого описания бота, если короткое описание в конфигурации не совпадает с текущим
+     * @param bot инстанс бота
+     * @param propertiesHolder конфигурация бота
+     */
     private void setBotShortDescription(TelegramBot bot, EzTgBotPropertiesHolder propertiesHolder) {
         String currentDesc = bot.execute(new GetMyShortDescription()).description();
         String newDesc = propertiesHolder.getTelegramBotConfigs().getShortDescription();
@@ -61,6 +83,10 @@ public class TelegramBotInitializer {
         }
     }
 
+    /**
+     * Проверка ответа от сервера
+     * @param response отает от сервера
+     */
     private void checkResponse(BaseResponse response) {
         if (response.isOk()) {
             EzTgBotLogger.info("Success");
