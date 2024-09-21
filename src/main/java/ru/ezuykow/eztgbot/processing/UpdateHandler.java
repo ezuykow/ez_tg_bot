@@ -3,7 +3,7 @@ package ru.ezuykow.eztgbot.processing;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.ezuykow.eztgbot.context.EzTgBotContext;
@@ -43,7 +43,7 @@ public class UpdateHandler {
         try {
             UpdatePreProcessor preProcessor = applicationContext.getBean(UpdatePreProcessor.class);
             preProcessor.preProcess();
-        } catch (NoUniqueBeanDefinitionException e) {
+        } catch (NoSuchBeanDefinitionException e) {
             //Если предварительный процессор не объявлен или их несколько - сразу переходим к основной обработке
         } finally {
             processorSwitcher.callSuitableProcessor();
