@@ -1,5 +1,7 @@
 package ru.ezuykow.eztgbot.utils.update;
 
+import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.Update;
 
 /**
@@ -17,6 +19,9 @@ public class UpdateUtils {
      */
     public static UpdateContentType resolveUpdateContentType(Update update) {
         if (update.message() != null) {
+            if (isBotCommand(update.message())) {
+                return UpdateContentType.COMMAND;
+            }
             return UpdateContentType.MESSAGE;
         }
         if (update.callbackQuery() != null) {
@@ -83,5 +88,15 @@ public class UpdateUtils {
             return UpdateContentType.REMOVED_CHAT_BOOST;
         }
         return UpdateContentType.UNRESOLVED;
+    }
+
+    private static boolean isBotCommand(Message message) {
+        MessageEntity[] entities = message.entities();
+        return entities != null
+                && entities.length == 1
+                && entities[0].type() == MessageEntity.Type.bot_command
+                && entities[0].offset() == 0
+                && entities[0].length() == message.text().length();
+
     }
 }

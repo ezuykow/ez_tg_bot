@@ -10,6 +10,12 @@ public enum UpdateContentType {
      */
     MESSAGE,
     /**
+     * {@code Update} contains {@code Message}
+     * (New incoming message of any kind - text, photo, sticker, etc.)
+     * with command to bot
+     */
+    COMMAND,
+    /**
      * {@code Update} contains {@code CallbackQuery} (New incoming callback query)
      */
     CALLBACK_QUERY,
