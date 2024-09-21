@@ -3,6 +3,7 @@ package ru.ezuykow.eztgbot.configs;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import ru.ezuykow.eztgbot.utils.EzTgBotLogger;
 
 /**
@@ -17,6 +18,7 @@ public class EzTgBotPropertiesHolder {
     /**
      * Конфигурация Телеграм бота
      */
+    @NestedConfigurationProperty
     private TelegramBotConfigs telegramBotConfigs;
 
     /**
