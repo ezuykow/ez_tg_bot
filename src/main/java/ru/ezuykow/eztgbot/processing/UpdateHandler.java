@@ -1,5 +1,6 @@
 package ru.ezuykow.eztgbot.processing;
 
+import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -24,7 +25,8 @@ public class UpdateHandler {
     public void submitForProcessing(Update update) {
         executorService.submit(() ->
         {
-            EzTgBotContext.setContext(update);
+            TelegramBot telegramBot = applicationContext.getBean(TelegramBot.class);
+            EzTgBotContext.setContext(telegramBot, update);
             try {
                 startProcessing();
             } catch (Exception e) {
