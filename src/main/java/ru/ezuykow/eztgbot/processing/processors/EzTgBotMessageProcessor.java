@@ -1,6 +1,5 @@
 package ru.ezuykow.eztgbot.processing.processors;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.ezuykow.eztgbot.utils.update.UpdateContentType;
 
@@ -9,22 +8,13 @@ import ru.ezuykow.eztgbot.utils.update.UpdateContentType;
  * @author ezuykow
  */
 @Component
-@RequiredArgsConstructor
-public class EzTgBotMessageProcessor implements EzTgBotProcessor {
+public interface EzTgBotMessageProcessor extends EzTgBotProcessor {
 
     /**
      * @return {@link UpdateContentType#MESSAGE}
      */
     @Override
-    public UpdateContentType suitFor() {
+    default UpdateContentType suitFor() {
         return UpdateContentType.MESSAGE;
-    }
-
-    /**
-     * Обработка сообщения
-     */
-    @Override
-    public void process() {
-        //For future features
     }
 }
