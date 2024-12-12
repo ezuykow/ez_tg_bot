@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -19,6 +20,7 @@ import ru.ezuykow.eztgbot.utils.EzTgBotLogger;
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(EzTgBotPropertiesHolder.class)
+@ComponentScan("ru.ezuykow.eztgbot")
 @RequiredArgsConstructor
 public class EzTgBot {
 
