@@ -1,7 +1,6 @@
 package ru.ezuykow.eztgbot.initializers;
 
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.request.DeleteWebhook;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SetWebhook;
@@ -62,21 +61,9 @@ public final class TelegramBotFactory {
             timeout = 100;
         }
         bot.setUpdatesListener(
-//                updateListener(updateHandler),
                 new DefaultUpdatesListener(updateHandler, propertiesHolder),
                 new GetUpdates().timeout(timeout)
         );
     }
 
-    /**
-     * Возвращает дефолтный слушатель апдейтов
-     * @param updateHandler обработчик апдейтов
-     * @return дефолтный слушатель апдейтов
-     */
-    private static UpdatesListener updateListener(UpdateHandler updateHandler) {
-        return updates -> {
-            updates.forEach(updateHandler::submitForProcessing);
-            return UpdatesListener.CONFIRMED_UPDATES_ALL;
-        };
-    }
 }

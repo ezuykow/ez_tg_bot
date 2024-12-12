@@ -6,6 +6,10 @@ import ru.ezuykow.eztgbot.configs.EzTgBotPropertiesHolder;
 
 import java.util.List;
 
+/**
+ * Дефолтный слушательь апдейтов
+ * @author ezuykow
+ */
 public class DefaultUpdatesListener implements UpdatesListener {
 
     private final UpdateHandler updateHandler;
