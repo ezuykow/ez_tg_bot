@@ -20,9 +20,11 @@ public class DefaultUpdatesListener implements UpdatesListener {
 
     @Override
     public int process(List<Update> updates) {
-        if (isStartup && propertiesHolder.getSkipOldUpdates()) {
+        if (isStartup) {
             isStartup = false;
-            return UpdatesListener.CONFIRMED_UPDATES_ALL;
+            if (propertiesHolder.getSkipOldUpdates() != null && propertiesHolder.getSkipOldUpdates()) {
+                return UpdatesListener.CONFIRMED_UPDATES_ALL;
+            }
         }
         updates.forEach(updateHandler::submitForProcessing);
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
