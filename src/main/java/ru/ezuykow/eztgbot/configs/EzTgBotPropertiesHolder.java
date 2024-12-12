@@ -25,12 +25,12 @@ public class EzTgBotPropertiesHolder {
      * Конфигурация меню бота с командами.
      * Включено - true, выключено - false
      */
-    private boolean botMenuEnabled;
+    private Boolean botMenuEnabled;
 
     /**
      * Пропустить апдейты, которые были отправлены до запуска бота. Включено - true, выключено - false
      */
-    private boolean skipOldUpdates;
+    private Boolean skipOldUpdates;
 
     /**
      * Проверяет наличие токена бота в файле конфигурации

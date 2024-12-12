@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.request.DeleteWebhook;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SetWebhook;
 import ru.ezuykow.eztgbot.configs.EzTgBotPropertiesHolder;
+import ru.ezuykow.eztgbot.processing.DefaultUpdatesListener;
 import ru.ezuykow.eztgbot.processing.UpdateHandler;
 
 /**
@@ -60,9 +61,9 @@ public final class TelegramBotFactory {
         if (timeout == null || timeout < 100) {
             timeout = 100;
         }
-        skipOldUpdatesIfNeeded(bot, propertiesHolder);
         bot.setUpdatesListener(
-                updateListener(updateHandler),
+//                updateListener(updateHandler),
+                new DefaultUpdatesListener(updateHandler, propertiesHolder),
                 new GetUpdates().timeout(timeout)
         );
     }
@@ -77,14 +78,5 @@ public final class TelegramBotFactory {
             updates.forEach(updateHandler::submitForProcessing);
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         };
-    }
-
-    /**
-     * Помечает старые апдейты как обработанные
-     */
-    private static void skipOldUpdatesIfNeeded(TelegramBot bot, EzTgBotPropertiesHolder propertiesHolder) {
-        if (propertiesHolder.isSkipOldUpdates()){
-            bot.setUpdatesListener(updates -> UpdatesListener.CONFIRMED_UPDATES_ALL);
-        }
     }
 }
