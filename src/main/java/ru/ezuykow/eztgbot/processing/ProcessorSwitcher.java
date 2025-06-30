@@ -1,5 +1,6 @@
 package ru.ezuykow.eztgbot.processing;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ public class ProcessorSwitcher {
      * По-умолчанию false
      */
     @Setter
+    @Getter
     private boolean skipAllUpdates = false;
 
     /**
