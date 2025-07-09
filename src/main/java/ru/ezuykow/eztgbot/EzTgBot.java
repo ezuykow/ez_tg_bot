@@ -4,29 +4,33 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.DeleteWebhook;
 import com.pengrad.telegrambot.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import ru.ezuykow.eztgbot.configs.EzTgBotPropertiesHolder;
 import ru.ezuykow.eztgbot.initializers.TelegramBotInitializer;
 import ru.ezuykow.eztgbot.utils.EzTgBotLogger;
 
-@Component
+@SpringBootApplication
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(EzTgBotPropertiesHolder.class)
-@ComponentScan("ru.ezuykow.eztgbot")
+//@ComponentScan("ru.ezuykow.eztgbot")
 @RequiredArgsConstructor
 public class EzTgBot {
 
     private final ApplicationContext applicationContext;
     private final EzTgBotPropertiesHolder ezTgBotPropertiesHolder;
     private final TelegramBotInitializer telegramBotInitializer;
+
+    public static void main(String[] args) {
+        SpringApplication.run(EzTgBot.class, args);
+    }
 
     @EventListener(ContextRefreshedEvent.class)
     @Order(Ordered.HIGHEST_PRECEDENCE)
